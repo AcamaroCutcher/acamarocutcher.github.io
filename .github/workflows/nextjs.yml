@@ -34,7 +34,12 @@ jobs:
         run: npm run build
 
       - name: Add .nojekyll file
-        run: touch ./out/.nojekyll
+        run: |
+          touch ./out/.nojekyll
+          echo "Contents of out directory:"
+          ls -la ./out/ | head -20
+          echo "Verifying .nojekyll exists:"
+          test -f ./out/.nojekyll && echo "✓ .nojekyll exists" || echo "✗ .nojekyll missing"
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
